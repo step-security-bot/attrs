@@ -26,13 +26,6 @@ from ._next_gen import define, field, frozen, mutable
 from ._version_info import VersionInfo
 
 
-__title__ = "attrs"
-
-__author__ = "Hynek Schlawack"
-__license__ = "MIT"
-__copyright__ = "Copyright (c) 2015 Hynek Schlawack"
-
-
 s = attributes = attrs
 ib = attr = attrib
 dataclass = partial(attrs, auto_attribs=True)  # happy Easter ;)
@@ -80,12 +73,16 @@ def _make_getattr(mod_name: str) -> Callable:
 
     def __getattr__(name: str) -> str:
         dunder_to_metadata = {
+            "__title__": "Name",
+            "__copyright__": "",
             "__version__": "version",
             "__version_info__": "version",
             "__description__": "summary",
             "__uri__": "",
             "__url__": "",
-            "__email__": "",
+            "__author__": "author",
+            "__email__": "author-email",
+            "__license__": "license",
         }
         if name not in dunder_to_metadata.keys():
             raise AttributeError(f"module {mod_name} has no attribute {name}")
@@ -109,10 +106,10 @@ def _make_getattr(mod_name: str) -> Callable:
 
         meta = metadata("attrs")
 
-        if name in ("__uri__", "__url__"):
+        if name == "__copyright__":
+            return "Copyright (c) 2015 Hynek Schlawack"
+        elif name in ("__uri__", "__url__"):
             return meta["Project-URL"].split(" ", 1)[-1]
-        elif name == "__email__":
-            return meta["Author-email"].split("<", 1)[1].rstrip(">")
         elif name == "__version_info__":
             return VersionInfo._from_version_string(meta["version"])
 
