@@ -45,7 +45,7 @@ CLASSIFIERS = [
 INSTALL_REQUIRES = ["importlib_metadata;python_version<'3.8'"]
 EXTRAS_REQUIRE = {
     "docs": ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"],
-    "tests_no_zope": [
+    "tests-no-zope": [
         # For regression test to ensure cloudpickle compat doesn't break.
         'cloudpickle; python_implementation == "CPython"',
         # 5.0 introduced toml; parallel was broken until 5.0.2
@@ -60,7 +60,7 @@ EXTRAS_REQUIRE = {
         "pytest-mypy-plugins; python_implementation == 'CPython'",
     ],
     "tests": [
-        "attrs[tests_no_zope]",
+        "attrs[tests-no-zope]",
         "zope.interface",
     ],
     "dev": ["attrs[docs,tests]", "pre-commit"],
