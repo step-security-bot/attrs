@@ -9,6 +9,7 @@ build-backend = "hatchling.build"
 name = "attrs"
 version = "22.2.0.dev0"
 authors = [{ name = "Hynek Schlawack", email = "hs@ox.cx" }]
+license = { file = "LICENSE" }
 requires-python = ">=3.7"
 description = "Classes Without Boilerplate"
 keywords = ["class", "attribute", "boilerplate"]
