@@ -14,5 +14,4 @@ build
 dist
 docs/_build/
 htmlcov
-pip-wheel-metadata
-tmp
+tmp*

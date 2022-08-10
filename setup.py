@@ -48,8 +48,6 @@ EXTRAS_REQUIRE = {
     "tests-no-zope": [
         # For regression test to ensure cloudpickle compat doesn't break.
         'cloudpickle; python_implementation == "CPython"',
-        # 5.0 introduced toml; parallel was broken until 5.0.2
-        "coverage[toml]>=5.0.2",
         "hypothesis",
         "pympler",
         # 4.3.0 dropped last use of `convert`
@@ -59,12 +57,14 @@ EXTRAS_REQUIRE = {
         "mypy>=0.971; python_implementation == 'CPython'",
         "pytest-mypy-plugins; python_implementation == 'CPython'",
     ],
-    "tests": [
+    "tests": {
         "attrs[tests-no-zope]",
         "zope.interface",
-    ],
-    "dev": ["attrs[docs,tests]", "pre-commit"],
+    },
+    "dev": {"attrs[tests,docs]": ["pre-commit"]},
 }
+# Don't break Paul unnecessarily just yet. C.f. #685
+EXTRAS_REQUIRE["tests_no_zope"] = EXTRAS_REQUIRE["tests-no-zope"]
 
 ###############################################################################
 

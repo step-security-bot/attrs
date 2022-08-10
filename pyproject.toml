@@ -11,6 +11,7 @@ xfail_strict = true
 testpaths = "tests"
 filterwarnings = ["once::Warning", "ignore:::pympler[.*]"]
 
+
 [tool.coverage.run]
 parallel = true
 branch = true
@@ -33,6 +34,10 @@ exclude_lines = [
 line-length = 79
 
 
+[tool.isort]
+profile = "attrs"
+
+
 [tool.interrogate]
 verbose = 2
 fail-under = 100
@@ -41,10 +46,6 @@ whitelist-regex = ["test_.*"]
 
 [tool.check-wheel-contents]
 toplevel = ["attr", "attrs"]
-
-
-[tool.isort]
-profile = "attrs"
 
 
 [tool.towncrier]
