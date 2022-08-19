@@ -717,15 +717,33 @@ class _ClassBuilder:
     def __repr__(self):
         return f"<_ClassBuilder(cls={self._cls.__name__})>"
 
-    def build_class(self):
-        """
-        Finalize class based on the accumulated configuration.
+    if PY310:
+        import abc
 
-        Builder cannot be used after calling this method.
-        """
-        if self._slots is True:
-            return self._create_slots_class()
-        else:
+        def build_class(self):
+            """
+            Finalize class based on the accumulated configuration.
+
+            Builder cannot be used after calling this method.
+            """
+            if self._slots is True:
+                return self._create_slots_class()
+
+            return self.abc.update_abstractmethods(
+                self._patch_original_class()
+            )
+
+    else:
+
+        def build_class(self):
+            """
+            Finalize class based on the accumulated configuration.
+
+            Builder cannot be used after calling this method.
+            """
+            if self._slots is True:
+                return self._create_slots_class()
+
             return self._patch_original_class()
 
     def _patch_original_class(self):
@@ -904,7 +922,7 @@ class _ClassBuilder:
             """
             Automatically created by attrs.
             """
-            return tuple(getattr(self, name) for name in state_attr_names)
+            return {name: getattr(self, name) for name in state_attr_names}
 
         hash_caching_enabled = self._cache_hash
 
@@ -913,8 +931,9 @@ class _ClassBuilder:
             Automatically created by attrs.
             """
             __bound_setattr = _obj_setattr.__get__(self)
-            for name, value in zip(state_attr_names, state):
-                __bound_setattr(name, value)
+            for name in state_attr_names:
+                if name in state:
+                    __bound_setattr(name, state[name])
 
             # The hash code cache is not included when the object is
             # serialized, but it still needs to be initialized to None to
