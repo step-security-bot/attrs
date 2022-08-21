@@ -41,12 +41,20 @@ tests-no-zope = [
     "pympler",
     # 4.3.0 dropped last use of `convert`
     "pytest>=4.3.0",
+    "pytest-xdist",
     # Since the mypy error messages keep changing, we have to keep updating this
     # pin.
     'mypy>=0.971; python_implementation == "CPython"',
     'pytest-mypy-plugins; python_implementation == "CPython"',
 ]
 tests = ["attrs[tests-no-zope]", "zope.interface"]
+cov = [
+    "attrs[tests]",
+    # Makes coverage work with pytest-xdist.
+    "coverage-enable-subprocess",
+    # Ensure coverage is new enough for `source_pkgs`.
+    "coverage>=5.3",
+]
 docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
 dev = ["attrs[tests,docs]", "pre-commit"]
 
@@ -106,7 +114,7 @@ filterwarnings = ["once::Warning", "ignore:::pympler[.*]"]
 [tool.coverage.run]
 parallel = true
 branch = true
-source = ["attr", "attrs"]
+source_pkgs = ["attr", "attrs"]
 
 [tool.coverage.paths]
 source = ["src", ".tox/*/site-packages"]
