@@ -55,7 +55,13 @@ cov = [
     # Ensure coverage is new enough for `source_pkgs`.
     "coverage>=5.3",
 ]
-docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
+docs = [
+    "furo",
+    "sphinx",
+    "zope.interface",
+    "sphinx-notfound-page",
+    "sphinxcontrib-towncrier",
+]
 dev = ["attrs[tests,docs]", "pre-commit"]
 
 [project.urls]
