@@ -3,6 +3,7 @@
 from attr import (
     NOTHING,
     Attribute,
+    AttrsInstance,
     Factory,
     _make_getattr,
     assoc,
@@ -39,6 +40,7 @@ __all__ = [
     "assoc",
     "astuple",
     "Attribute",
+    "AttrsInstance",
     "cmp_using",
     "converters",
     "define",
