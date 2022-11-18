@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v1
+        uses: step-security/harden-runner@2e205a28d0e1da00c5f53b161f4067b052c61f34
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -48,8 +48,8 @@ jobs:
             github.com:443
             objects.githubusercontent.com:443
             pypi.org:443
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -62,7 +62,7 @@ jobs:
       - run: python -m tox
 
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb
         with:
           name: coverage-data
           path: .coverage.*
@@ -74,7 +74,7 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v1
+        uses: step-security/harden-runner@2e205a28d0e1da00c5f53b161f4067b052c61f34
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -82,8 +82,8 @@ jobs:
             github.com:443
             pypi.org:443
 
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984
         with:
           # Use latest Python, so it understands all syntax.
           python-version: ${{env.PYTHON_LATEST}}
@@ -91,7 +91,7 @@ jobs:
       - run: python -m pip install --upgrade coverage[toml]
 
       - name: Download coverage data
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9782bd6a9848b53b110e712e20e42d89988822b7
         with:
           name: coverage-data
 
@@ -102,7 +102,7 @@ jobs:
           python -m coverage report --fail-under=100
 
       - name: Upload HTML report if check failed.
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb
         with:
           name: html-report
           path: htmlcov
@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v1
+        uses: step-security/harden-runner@2e205a28d0e1da00c5f53b161f4067b052c61f34
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -122,8 +122,8 @@ jobs:
             github.com:443
             pypi.org:443
 
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984
         with:
           python-version: "3.10"
 
@@ -135,7 +135,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v1
+        uses: step-security/harden-runner@2e205a28d0e1da00c5f53b161f4067b052c61f34
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -145,8 +145,8 @@ jobs:
             pypi.org:443
             registry.npmjs.org:443
 
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984
         with:
           python-version: ${{env.PYTHON_LATEST}}
 
@@ -159,15 +159,15 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v1
+        uses: step-security/harden-runner@2e205a28d0e1da00c5f53b161f4067b052c61f34
         with:
           egress-policy: block
           allowed-endpoints: >
             files.pythonhosted.org:443
             github.com:443
             pypi.org:443
-      - uses: actions/checkout@v3
-      - uses: hynek/build-and-inspect-python-package@v1
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: hynek/build-and-inspect-python-package@f336040a31ea03a2551adcc994d3ddb2f3ea3f7f
 
   install-dev:
     name: Verify dev env
@@ -178,15 +178,15 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v1
+        uses: step-security/harden-runner@2e205a28d0e1da00c5f53b161f4067b052c61f34
         with:
           egress-policy: block
           allowed-endpoints: >
             files.pythonhosted.org:443
             github.com:443
             pypi.org:443
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: actions/setup-python@13ae5bb136fac2878aff31522b9efb785519f984
         with:
           python-version: ${{env.PYTHON_LATEST}}
       - run: python -m pip install -e .[dev]
@@ -207,11 +207,11 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v1
+        uses: step-security/harden-runner@2e205a28d0e1da00c5f53b161f4067b052c61f34
         with:
           egress-policy: block
 
       - name: Decide whether the needed jobs succeeded or failed
-        uses: re-actors/alls-green@release/v1
+        uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe
         with:
           jobs: ${{ toJSON(needs) }}
